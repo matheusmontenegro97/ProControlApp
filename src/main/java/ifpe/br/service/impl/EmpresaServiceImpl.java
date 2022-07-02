@@ -1,0 +1,46 @@
+package ifpe.br.service.impl;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ifpe.br.model.Empresa;
+import ifpe.br.repository.EmpresaRepository;
+
+@Service
+public class EmpresaServiceImpl {
+	
+	@Autowired
+	private EmpresaRepository empresaRepository;
+	
+	public Empresa retornaEmpresaById(UUID codigoEmpresa) throws Exception {
+		
+		Empresa empresa = empresaRepository.findById(codigoEmpresa).orElseThrow(() -> new Exception("Id não encontrado"));
+		
+		return empresa;
+	}
+	
+	@Transactional
+	public Empresa createEmpresa(Empresa empresa) {		
+		return empresaRepository.save(empresa);
+	}
+	
+	@Transactional
+	public Empresa updateEmpresa(Empresa empresa, UUID codigoEmpresa) throws Exception {
+		Optional<Empresa> empresaOptional = empresaRepository.findById(codigoEmpresa);
+		
+		if(empresaOptional.isPresent()) {
+			empresa.setCodigoEmpresa(empresaOptional.get().getCodigoEmpresa());
+		}
+		/*
+		 * else { throw new Exception("Id não encontrado!"); }
+		 */
+		
+		return empresaRepository.save(empresa);
+	}
+	
+}
