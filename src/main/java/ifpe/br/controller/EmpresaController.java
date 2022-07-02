@@ -1,7 +1,5 @@
 package ifpe.br.controller;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ public class EmpresaController {
 	private EmpresaServiceImpl service;
 	
 	@GetMapping("/{codigoEmpresa}")
-	public ResponseEntity<Empresa> retornaEmpresaPorId(@PathVariable(value="codigoEmpresa") UUID codigoEmpresa) throws Exception{
+	public ResponseEntity<Empresa> retornaEmpresaPorId(@PathVariable(value="codigoEmpresa") Long codigoEmpresa) throws Exception{
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaEmpresaById(codigoEmpresa));
 	}
 
@@ -35,7 +33,7 @@ public class EmpresaController {
 	}
 
 	@PutMapping("/{codigoEmpresa}")
-	public ResponseEntity<Empresa> atualizaEmpresa(@PathVariable(value = "codigoEmpresa") UUID codigoEmpresa,
+	public ResponseEntity<Empresa> atualizaEmpresa(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa,
 			@RequestBody Empresa empresa) throws Exception {
 
 		return ResponseEntity.status(HttpStatus.OK).body(service.updateEmpresa(empresa, codigoEmpresa));

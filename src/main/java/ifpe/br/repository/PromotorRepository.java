@@ -3,9 +3,9 @@ package ifpe.br.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ifpe.br.model.Empresa;
+import ifpe.br.model.Promotor;
 
 @Repository
-public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
+public interface PromotorRepository extends JpaRepository<Promotor, Long>{
 
 }
