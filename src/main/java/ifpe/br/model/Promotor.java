@@ -16,7 +16,7 @@ public class Promotor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigoPromotor;
-	@Column(name = "fk_empresa")
+	@Column(name = "codigo_empresa")
 	private Long codigoEmpresa;
 	private String cpf;
 	private String nome;
