@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Empresa;
 import ifpe.br.model.Promotor;
-import ifpe.br.repository.EmpresaRepository;
 import ifpe.br.service.impl.EmpresaServiceImpl;
 
 @RestController
@@ -25,12 +24,10 @@ public class EmpresaController {
 	@Autowired
 	private EmpresaServiceImpl service;
 	
-	@Autowired
-	private EmpresaRepository repository;
-	
 	@GetMapping("promotores/{codigoEmpresa}")
 	public List<Promotor> retornaListaPromotoresPorCodigoEmpresa(@PathVariable(value="codigoEmpresa") Long codigoEmpresa){
-		return repository.findPromotoresByCodigoEmpresa(codigoEmpresa);
+		return service.retornaListaPromotoresByCodigoEmpresa(codigoEmpresa);
+				
 	}
 	
 	@GetMapping("/{codigoEmpresa}")

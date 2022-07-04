@@ -1,5 +1,6 @@
 package ifpe.br.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ifpe.br.model.Empresa;
+import ifpe.br.model.Promotor;
 import ifpe.br.repository.EmpresaRepository;
 
 @Service
@@ -15,6 +17,10 @@ public class EmpresaServiceImpl {
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	
+	public List<Promotor> retornaListaPromotoresByCodigoEmpresa(Long codigoEmpresa){
+		return empresaRepository.findPromotoresByCodigoEmpresa(codigoEmpresa);
+	}
 
 	public Empresa retornaEmpresaById(Long codigoEmpresa) throws Exception {
 
