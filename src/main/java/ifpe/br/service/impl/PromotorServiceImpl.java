@@ -13,15 +13,14 @@ public class PromotorServiceImpl {
 
 	@Autowired
 	PromotorRepository promotorRepository;
-	
+
 	@Autowired
 	EmpresaServiceImpl empresaService;
-	
+
 	@Transactional
 	public Promotor createPromotor(Promotor promotor) {
-		empresaService.updatePromotores(promotor.getCodigoEmpresa(), promotor);
-	
+		
 		return promotorRepository.save(promotor);
 	}
-	
+
 }
