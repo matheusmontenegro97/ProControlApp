@@ -1,7 +1,5 @@
 package ifpe.br.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Empresa;
-import ifpe.br.model.Promotor;
 import ifpe.br.service.impl.EmpresaServiceImpl;
 
 @RestController
@@ -23,15 +20,10 @@ public class EmpresaController {
 
 	@Autowired
 	private EmpresaServiceImpl service;
-	
-	@GetMapping("promotores/{codigoEmpresa}")
-	public List<Promotor> retornaListaPromotoresPorCodigoEmpresa(@PathVariable(value="codigoEmpresa") Long codigoEmpresa){
-		return service.retornaListaPromotoresByCodigoEmpresa(codigoEmpresa);
-				
-	}
-	
+
 	@GetMapping("/{codigoEmpresa}")
-	public ResponseEntity<Empresa> retornaEmpresaPorId(@PathVariable(value="codigoEmpresa") Long codigoEmpresa) throws Exception{
+	public ResponseEntity<Empresa> retornaEmpresaPorId(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa)
+			throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaEmpresaById(codigoEmpresa));
 	}
 
