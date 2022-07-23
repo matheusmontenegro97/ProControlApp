@@ -10,7 +10,7 @@ public class UsuarioEmpresaDTOMapper {
 		usuario.setCnpj(usuarioEmpresa.getEmpresa().getCnpj());
 		usuario.setEndereco(usuarioEmpresa.getEmpresa().getEndereco());
 		usuario.setRazaoSocial(usuarioEmpresa.getEmpresa().getRazaoSocial());
-		usuario.setTelefone(usuarioEmpresa.getEmpresa().getRazaoSocial());
+		usuario.setTelefone(usuarioEmpresa.getEmpresa().getTelefone());
 		
 		return usuario;
 		
