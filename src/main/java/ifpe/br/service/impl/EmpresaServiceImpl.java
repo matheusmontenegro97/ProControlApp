@@ -59,6 +59,8 @@ public class EmpresaServiceImpl {
 
 		if (empresaOptional.isPresent()) {
 			empresa.setCodigoEmpresa(empresaOptional.get().getCodigoEmpresa());
+			empresa.setLogin(empresaOptional.get().getLogin());
+			empresa.setPassword(empresaOptional.get().getPassword());
 		}
 
 		else {
