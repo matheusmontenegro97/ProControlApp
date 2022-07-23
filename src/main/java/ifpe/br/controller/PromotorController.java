@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Promotor;
+import ifpe.br.model.RequestLogin;
+import ifpe.br.model.dto.UsuarioPromotorDTO;
 import ifpe.br.service.impl.PromotorServiceImpl;
 
 @RestController
@@ -29,6 +31,11 @@ public class PromotorController {
 	@GetMapping("/promotor/codigoPromotor")
 	public ResponseEntity<Promotor> retornaPromotorPorId(@PathVariable(value = "codigoPromotor")Long codigoPromotor) throws Exception{
 		return ResponseEntity.status(HttpStatus.OK).body(service.getPromotorById(codigoPromotor));
+	}
+	
+	@PostMapping("/auth/promotor")
+	public ResponseEntity<UsuarioPromotorDTO> retornaUsuarioEmpresa(@RequestBody RequestLogin request){
+		return ResponseEntity.status(HttpStatus.OK).body(service.retornaUsuarioPromotorByLoginAndPassword(request));
 	}
 
 	@PostMapping("/promotor")

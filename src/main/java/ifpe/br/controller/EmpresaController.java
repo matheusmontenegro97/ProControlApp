@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Empresa;
+import ifpe.br.model.RequestLogin;
+import ifpe.br.model.dto.UsuarioEmpresaDTO;
 import ifpe.br.service.impl.EmpresaServiceImpl;
 
 @RestController
@@ -27,8 +29,13 @@ public class EmpresaController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaEmpresaById(codigoEmpresa));
 	}
 
+	@PostMapping("/auth/empresa")
+	public ResponseEntity<UsuarioEmpresaDTO> retornaUsuarioEmpresa(@RequestBody RequestLogin request){
+		return ResponseEntity.status(HttpStatus.OK).body(service.retornaUsuarioEmpresaByLoginAndPassword(request));
+	}
+	
 	@PostMapping
-	public ResponseEntity<Empresa> criaEmpresa(@RequestBody Empresa empresa) {
+	public ResponseEntity<Empresa> criaEmpresa(@RequestBody Empresa empresa) throws Exception {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.createEmpresa(empresa));
 	}

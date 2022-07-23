@@ -1,18 +1,10 @@
-package ifpe.br.model;
+package ifpe.br.model.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "promotor")
-public class Promotor {
+import ifpe.br.model.Endereco;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class UsuarioPromotorDTO {
 	private Long codigoPromotor;
 	@Column(name = "codigo_empresa")
 	private Long codigoEmpresa;
@@ -21,9 +13,6 @@ public class Promotor {
 	private String telefone;
 	private String email;
 	private Endereco endereco;
-	@Column(unique = true)
-	private String login;
-	private String password;
 
 	public Long getCodigoPromotor() {
 		return codigoPromotor;
@@ -79,22 +68,6 @@ public class Promotor {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }

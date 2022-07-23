@@ -8,8 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ifpe.br.mappers.UsuarioPromotorDTOMapper;
 import ifpe.br.model.Promotor;
+import ifpe.br.model.RequestLogin;
+import ifpe.br.model.UsuarioPromotor;
+import ifpe.br.model.dto.UsuarioPromotorDTO;
 import ifpe.br.repository.PromotorRepository;
+import ifpe.br.repository.UsuarioRepositoryPromotor;
 
 @Service
 public class PromotorServiceImpl {
@@ -19,6 +24,9 @@ public class PromotorServiceImpl {
 
 	@Autowired
 	EmpresaServiceImpl empresaService;
+	
+	@Autowired
+	UsuarioRepositoryPromotor loginPromotor;
 
 	public Promotor getPromotorById(Long codigoPromotor) throws Exception {
 		Promotor promotor = promotorRepository.findById(codigoPromotor)
@@ -27,10 +35,25 @@ public class PromotorServiceImpl {
 		return promotor;
 	}
 
+	public UsuarioPromotorDTO retornaUsuarioPromotorByLoginAndPassword(RequestLogin request) {
+		UsuarioPromotor usuarioPromotor = loginPromotor.findByLoginAndPassword(request.getLogin(), request.getPassword());
+		UsuarioPromotorDTOMapper usuario = new UsuarioPromotorDTOMapper();
+		
+		return usuario.map(usuarioPromotor);
+	}
+	
 	@Transactional
 	public Promotor createPromotor(Promotor promotor) {
+		Promotor promotorSaved = promotorRepository.save(promotor);
+		
+		UsuarioPromotor usuario = new UsuarioPromotor();
+		usuario.setLogin(promotor.getLogin());
+		usuario.setPassword(promotor.getPassword());
+		usuario.setPromotor(promotor);
+		
+		loginPromotor.save(usuario);
 
-		return promotorRepository.save(promotor);
+		return promotorSaved;
 	}
 
 	@Transactional
@@ -63,5 +86,5 @@ public class PromotorServiceImpl {
 	public List<Promotor> retornaListaPromotoresByCodigoEmpresa(Long codigoEmpresa) {
 		return promotorRepository.findPromotoresByCodigoEmpresa(codigoEmpresa);
 	}
-
+	
 }

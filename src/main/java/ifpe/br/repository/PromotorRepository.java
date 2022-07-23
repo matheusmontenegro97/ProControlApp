@@ -11,6 +11,6 @@ import ifpe.br.model.Promotor;
 @Repository
 public interface PromotorRepository extends JpaRepository<Promotor, Long>{
 
-	@Query(value = "SELECT * FROM PROMOTOR p WHERE p.codigo_empresa = :codigoEmpresa", nativeQuery = true)
+	@Query(value = "SELECT * FROM promotor p WHERE p.codigo_empresa = :codigoEmpresa", nativeQuery = true)
 	public List<Promotor> findPromotoresByCodigoEmpresa(Long codigoEmpresa);
 }

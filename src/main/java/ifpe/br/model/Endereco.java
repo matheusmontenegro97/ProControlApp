@@ -15,10 +15,11 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Endereco {
 	private String cep;
-	private String logradouro;
+	private String rua;
+	private String numero;
 	private String bairro;
 	private String cidade;
 	@Enumerated(EnumType.STRING)
-	private Estados uf;
+	private Estados estado;
 
 }
