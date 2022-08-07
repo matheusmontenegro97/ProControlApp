@@ -1,8 +1,11 @@
 package ifpe.br.mappers;
 
+import org.springframework.stereotype.Component;
+
 import ifpe.br.model.UsuarioPromotor;
 import ifpe.br.model.dto.UsuarioPromotorDTO;
 
+@Component
 public class UsuarioPromotorDTOMapper {
 	
 	public UsuarioPromotorDTO map (UsuarioPromotor usuarioPromotor) {

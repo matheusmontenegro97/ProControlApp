@@ -1,5 +1,6 @@
 package ifpe.br.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,10 +9,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ifpe.br.mappers.PromotorDTOMapper;
 import ifpe.br.mappers.UsuarioPromotorDTOMapper;
 import ifpe.br.model.Promotor;
 import ifpe.br.model.RequestLogin;
 import ifpe.br.model.UsuarioPromotor;
+import ifpe.br.model.dto.PromotorDTO;
 import ifpe.br.model.dto.UsuarioPromotorDTO;
 import ifpe.br.repository.PromotorRepository;
 import ifpe.br.repository.UsuarioRepositoryPromotor;
@@ -27,6 +30,12 @@ public class PromotorServiceImpl {
 	
 	@Autowired
 	UsuarioRepositoryPromotor loginPromotor;
+	
+	@Autowired
+	UsuarioPromotorDTOMapper usuarioPromotorDTOMapper;
+	
+	@Autowired
+	PromotorDTOMapper promotorDTOMapper;
 
 	public Promotor getPromotorById(Long codigoPromotor) throws Exception {
 		Promotor promotor = promotorRepository.findById(codigoPromotor)
@@ -37,13 +46,12 @@ public class PromotorServiceImpl {
 
 	public UsuarioPromotorDTO retornaUsuarioPromotorByLoginAndPassword(RequestLogin request) {
 		UsuarioPromotor usuarioPromotor = loginPromotor.findByLoginAndPassword(request.getLogin(), request.getPassword());
-		UsuarioPromotorDTOMapper usuario = new UsuarioPromotorDTOMapper();
 		
-		return usuario.map(usuarioPromotor);
+		return usuarioPromotorDTOMapper.map(usuarioPromotor);
 	}
 	
 	@Transactional
-	public Promotor createPromotor(Promotor promotor) {
+	public PromotorDTO createPromotor(Promotor promotor) {
 		Promotor promotorSaved = promotorRepository.save(promotor);
 		
 		UsuarioPromotor usuario = new UsuarioPromotor();
@@ -53,11 +61,11 @@ public class PromotorServiceImpl {
 		
 		loginPromotor.save(usuario);
 
-		return promotorSaved;
+		return promotorDTOMapper.map(promotorSaved);
 	}
 
 	@Transactional
-	public Promotor updatePromotor(Promotor promotor, Long codigoPromotor) throws Exception {
+	public PromotorDTO updatePromotor(Promotor promotor, Long codigoPromotor) throws Exception {
 		Optional<Promotor> promotorOptional = promotorRepository.findById(codigoPromotor);
 
 		if (promotorOptional.isPresent()) {
@@ -67,8 +75,10 @@ public class PromotorServiceImpl {
 		else {
 			throw new Exception("Id não encontrado!");
 		}
+		
+		Promotor promotorSaved = promotorRepository.save(promotor);
 
-		return promotorRepository.save(promotor);
+		return promotorDTOMapper.map(promotorSaved);
 	}
 
 	public Optional<Promotor> findByIdPromotor(Long codigoPromotor) {
@@ -83,8 +93,13 @@ public class PromotorServiceImpl {
 		}
 	}
 
-	public List<Promotor> retornaListaPromotoresByCodigoEmpresa(Long codigoEmpresa) {
-		return promotorRepository.findPromotoresByCodigoEmpresa(codigoEmpresa);
+	public List<PromotorDTO> retornaListaPromotoresByCodigoEmpresa(Long codigoEmpresa) {
+		List<Promotor> promotores = promotorRepository.findPromotoresByCodigoEmpresa(codigoEmpresa);
+		List<PromotorDTO> promotoresDTO = new ArrayList<>();
+		
+		promotores.forEach(promotor -> promotoresDTO.add(promotorDTOMapper.map(promotor)));
+		
+		return promotoresDTO;
 	}
 	
 }

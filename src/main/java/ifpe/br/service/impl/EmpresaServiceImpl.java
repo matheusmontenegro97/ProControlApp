@@ -7,10 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ifpe.br.mappers.EmpresaDTOMapper;
 import ifpe.br.mappers.UsuarioEmpresaDTOMapper;
 import ifpe.br.model.Empresa;
 import ifpe.br.model.RequestLogin;
 import ifpe.br.model.UsuarioEmpresa;
+import ifpe.br.model.dto.EmpresaDTO;
 import ifpe.br.model.dto.UsuarioEmpresaDTO;
 import ifpe.br.repository.EmpresaRepository;
 import ifpe.br.repository.UsuarioRepositoryEmpresa;
@@ -23,24 +25,29 @@ public class EmpresaServiceImpl {
 
 	@Autowired
 	private UsuarioRepositoryEmpresa loginEmpresa;
+	
+	@Autowired
+	private UsuarioEmpresaDTOMapper usuarioEmpresaDTOMapper;
+	
+	@Autowired
+	private EmpresaDTOMapper empresaDTOMapper;
 
-	public Empresa retornaEmpresaById(Long codigoEmpresa) throws Exception {
+	public EmpresaDTO retornaEmpresaById(Long codigoEmpresa) throws Exception {
 
 		Empresa empresa = empresaRepository.findById(codigoEmpresa)
 				.orElseThrow(() -> new Exception("Id não encontrado"));
 
-		return empresa;
+		return empresaDTOMapper.map(empresa);
 	}
 
 	public UsuarioEmpresaDTO retornaUsuarioEmpresaByLoginAndPassword(RequestLogin request) {
 		UsuarioEmpresa usuarioEmpresa = loginEmpresa.findByLoginAndPassword(request.getLogin(), request.getPassword());
-		UsuarioEmpresaDTOMapper usuarioEmpresaDTOMapper = new UsuarioEmpresaDTOMapper();
 			
 		return usuarioEmpresaDTOMapper.map(usuarioEmpresa);
 	}
 
 	@Transactional
-	public Empresa createEmpresa(Empresa empresa) throws Exception {
+	public EmpresaDTO createEmpresa(Empresa empresa) throws Exception {
 		Empresa empresaSaved = empresaRepository.save(empresa);
 
 		UsuarioEmpresa usuario = new UsuarioEmpresa();
@@ -50,11 +57,11 @@ public class EmpresaServiceImpl {
 
 		loginEmpresa.save(usuario);
 
-		return empresaSaved;
+		return empresaDTOMapper.map(empresaSaved);
 	}
 
 	@Transactional
-	public Empresa updateEmpresa(Empresa empresa, Long codigoEmpresa) throws Exception {
+	public EmpresaDTO updateEmpresa(Empresa empresa, Long codigoEmpresa) throws Exception {
 		Optional<Empresa> empresaOptional = empresaRepository.findById(codigoEmpresa);
 
 		if (empresaOptional.isPresent()) {
@@ -66,8 +73,10 @@ public class EmpresaServiceImpl {
 		else {
 			throw new Exception("Id não encontrado!");
 		}
+		
+		Empresa empresaSaved = empresaRepository.save(empresa);
 
-		return empresaRepository.save(empresa);
+		return empresaDTOMapper.map(empresaSaved);
 	}
 
 	public Optional<Empresa> findByIdEmpresa(Long codigoEmpresa) {

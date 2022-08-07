@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Empresa;
 import ifpe.br.model.RequestLogin;
+import ifpe.br.model.dto.EmpresaDTO;
 import ifpe.br.model.dto.UsuarioEmpresaDTO;
 import ifpe.br.service.impl.EmpresaServiceImpl;
 
@@ -24,7 +25,7 @@ public class EmpresaController {
 	private EmpresaServiceImpl service;
 
 	@GetMapping("/{codigoEmpresa}")
-	public ResponseEntity<Empresa> retornaEmpresaPorId(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa)
+	public ResponseEntity<EmpresaDTO> retornaEmpresaPorId(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa)
 			throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaEmpresaById(codigoEmpresa));
 	}
@@ -35,13 +36,13 @@ public class EmpresaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Empresa> criaEmpresa(@RequestBody Empresa empresa) throws Exception {
+	public ResponseEntity<EmpresaDTO> criaEmpresa(@RequestBody Empresa empresa) throws Exception {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.createEmpresa(empresa));
 	}
 
 	@PutMapping("/{codigoEmpresa}")
-	public ResponseEntity<Empresa> atualizaEmpresa(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa,
+	public ResponseEntity<EmpresaDTO> atualizaEmpresa(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa,
 			@RequestBody Empresa empresa) throws Exception {
 
 		return ResponseEntity.status(HttpStatus.OK).body(service.updateEmpresa(empresa, codigoEmpresa));

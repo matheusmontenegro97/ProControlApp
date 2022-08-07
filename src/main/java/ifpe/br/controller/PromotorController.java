@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ifpe.br.model.Promotor;
 import ifpe.br.model.RequestLogin;
+import ifpe.br.model.dto.PromotorDTO;
 import ifpe.br.model.dto.UsuarioPromotorDTO;
 import ifpe.br.service.impl.PromotorServiceImpl;
 
@@ -39,13 +40,13 @@ public class PromotorController {
 	}
 
 	@PostMapping("/promotor")
-	public ResponseEntity<Promotor> criaEmpresa(@RequestBody Promotor promotor) {
+	public ResponseEntity<PromotorDTO> criaEmpresa(@RequestBody Promotor promotor) {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.createPromotor(promotor));
 	}
 	
 	@PutMapping("/promotor/{codigoPromotor}")
-	public ResponseEntity<Promotor> atualizaPromotorPorId(@PathVariable(value = "codigoPromotor") Long codigoPromotor,
+	public ResponseEntity<PromotorDTO> atualizaPromotorPorId(@PathVariable(value = "codigoPromotor") Long codigoPromotor,
 			@RequestBody Promotor promotor) throws Exception{
 		return ResponseEntity.status(HttpStatus.OK).body(service.updatePromotor(promotor, codigoPromotor));
 	}
@@ -57,7 +58,7 @@ public class PromotorController {
 	}
 	
 	@GetMapping("promotores/{codigoEmpresa}")
-	public List<Promotor> retornaListaPromotoresPorCodigoEmpresa(@PathVariable(value="codigoEmpresa") Long codigoEmpresa){
+	public List<PromotorDTO> retornaListaPromotoresPorCodigoEmpresa(@PathVariable(value="codigoEmpresa") Long codigoEmpresa){
 		return service.retornaListaPromotoresByCodigoEmpresa(codigoEmpresa);
 				
 	}
