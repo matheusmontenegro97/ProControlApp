@@ -42,4 +42,12 @@ public class EventoServiceImpl {
 		
 		return eventoSaved;
 	}
+	
+	public Evento getEventoByCodigoEmpresa(Long codigoEmpresa) {
+		return null;
+	}
+	
+	public Evento createEventoByPromotor(Evento evento) {
+		return null;
+	}
 }

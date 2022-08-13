@@ -1,13 +1,11 @@
 package ifpe.br.model.dto;
 
-import ifpe.br.model.Endereco;
-
 public class UsuarioEmpresaDTO {
 	private Long codigoEmpresa;
 	private String razaoSocial;
 	private String cnpj;
 	private String telefone;
-	private Endereco endereco;
+	private String endereco;
 
 	public Long getCodigoEmpresa() {
 		return codigoEmpresa;
@@ -41,11 +39,11 @@ public class UsuarioEmpresaDTO {
 		this.telefone = telefone;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 

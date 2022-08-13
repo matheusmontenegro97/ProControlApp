@@ -18,7 +18,7 @@ public class Empresa {
 	private String razaoSocial;
 	private String cnpj;
 	private String telefone;
-	private Endereco endereco;
+	private String endereco;
 	@Column(unique = true)
 	private String login;
 	private String password;
@@ -55,11 +55,11 @@ public class Empresa {
 		this.telefone = telefone;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
