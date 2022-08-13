@@ -1,5 +1,7 @@
 package ifpe.br.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,7 @@ public class EventoServiceImpl {
 			throw new Exception("Empresa inexistente!");
 		}
 				
-		evento.setPromotor(promotorEvento);
+		evento.setCodigoPromotor(promotorEvento.getCodigoPromotor());
 		evento.setEventoRealizado(false);
 		evento.setImgEventoRealizado("");
 		evento.setLatitude("");
@@ -43,16 +45,29 @@ public class EventoServiceImpl {
 		return eventoSaved;
 	}
 	
-	public Evento getEventoByCodigoEmpresa(Long codigoEmpresa) {
+	public List<Evento> getEventoByCodigoEmpresa(Long codigoEmpresa) {
 		return eventoRepository.findByCodigoEmpresa(codigoEmpresa);
 	}
 	
-	public Evento createEventoByPromotor(Evento evento) {
-		Evento eventoEmpresa = getEventoByCodigoEmpresa(evento.getCodigoEmpresa());
+	public List<Evento> getEventoByCodigoPromotor(Long codigoPromotor) {
+		return eventoRepository.findByCodigoPromotor(codigoPromotor);
+	}
+
+	public Evento createEventoByPromotor(Evento evento) throws Exception {
+		Evento eventoPromotor = eventoRepository.findById(evento.getCodigoEvento()).orElseThrow( () -> new Exception("Evento não encontrado") );
 		
-		evento.setCodigoEvento(eventoEmpresa.getCodigoEvento());
-		evento.setCodigoEmpresa(eventoEmpresa.getCodigoEmpresa());
+		evento.setEventoRealizado(true);
+		evento.setCodigoPromotor(eventoPromotor.getCodigoPromotor());
+		evento.setCodigoEvento(eventoPromotor.getCodigoEvento());
+		evento.setCodigoEmpresa(eventoPromotor.getCodigoEmpresa());
+		evento.setTitulo(eventoPromotor.getTitulo());
+		evento.setEndereco(eventoPromotor.getEndereco());
+		evento.setImgEmpresa(eventoPromotor.getImgEmpresa());
+		evento.setData(eventoPromotor.getData());
+		evento.setHorario(eventoPromotor.getHorario());
 		
-		return null;
+		Evento eventoPromotorSaved = eventoRepository.save(evento);
+		
+		return eventoPromotorSaved;
 	}
 }

@@ -3,13 +3,10 @@ package ifpe.br.model;
 import java.time.LocalDate;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,8 +24,6 @@ public class Evento {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private Date horario;
 	private Endereco endereco;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Promotor promotor;
 	private Boolean eventoRealizado;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate dataRealizacaoEvento;
@@ -52,14 +47,6 @@ public class Evento {
 
 	public void setCodigoEmpresa(Long codigoEmpresa) {
 		this.codigoEmpresa = codigoEmpresa;
-	}
-
-	public Long getCodigoPromotor() {
-		return codigoPromotor;
-	}
-
-	public void setCodigoPromotor(Long codigoPromotor) {
-		this.codigoPromotor = codigoPromotor;
 	}
 
 	public String getTitulo() {
@@ -94,12 +81,12 @@ public class Evento {
 		this.endereco = endereco;
 	}
 
-	public Promotor getPromotor() {
-		return promotor;
+	public Long getCodigoPromotor() {
+		return codigoPromotor;
 	}
 
-	public void setPromotor(Promotor promotor) {
-		this.promotor = promotor;
+	public void setCodigoPromotor(Long codigoPromotor) {
+		this.codigoPromotor = codigoPromotor;
 	}
 
 	public Boolean getEventoRealizado() {
