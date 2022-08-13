@@ -24,7 +24,7 @@ public class EmpresaController {
 	@Autowired
 	private EmpresaServiceImpl service;
 
-	@GetMapping("/{codigoEmpresa}")
+	@GetMapping("empresa/{codigoEmpresa}")
 	public ResponseEntity<EmpresaDTO> retornaEmpresaPorId(@PathVariable(value = "codigoEmpresa") Long codigoEmpresa)
 			throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaEmpresaById(codigoEmpresa));
@@ -35,7 +35,7 @@ public class EmpresaController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.retornaUsuarioEmpresaByLoginAndPassword(request));
 	}
 	
-	@PostMapping
+	@PostMapping("/empresa")
 	public ResponseEntity<EmpresaDTO> criaEmpresa(@RequestBody Empresa empresa) throws Exception {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.createEmpresa(empresa));

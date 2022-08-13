@@ -82,4 +82,8 @@ public class EmpresaServiceImpl {
 	public Optional<Empresa> findByIdEmpresa(Long codigoEmpresa) {
 		return empresaRepository.findById(codigoEmpresa);
 	}
+	
+	public boolean existEmpresById(Long codigoEmpresa) {
+		return empresaRepository.existsById(codigoEmpresa);
+	}
 }
