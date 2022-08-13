@@ -1,7 +1,5 @@
 package ifpe.br.model.dto;
 
-import ifpe.br.model.Endereco;
-
 public class PromotorDTO {
 	private Long codigoPromotor;
 	private Long codigoEmpresa;
@@ -9,7 +7,7 @@ public class PromotorDTO {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Endereco endereco;
+	private String endereco;
 
 	public Long getCodigoPromotor() {
 		return codigoPromotor;
@@ -59,11 +57,11 @@ public class PromotorDTO {
 		this.email = email;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 

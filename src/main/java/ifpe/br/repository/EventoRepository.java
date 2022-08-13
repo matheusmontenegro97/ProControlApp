@@ -7,5 +7,5 @@ import ifpe.br.model.Evento;
 
 @Repository
 public interface EventoRepository extends JpaRepository<Evento, Long>{
-
+	Evento findByCodigoEmpresa(Long codigoEmpresa);
 }

@@ -44,10 +44,15 @@ public class EventoServiceImpl {
 	}
 	
 	public Evento getEventoByCodigoEmpresa(Long codigoEmpresa) {
-		return null;
+		return eventoRepository.findByCodigoEmpresa(codigoEmpresa);
 	}
 	
 	public Evento createEventoByPromotor(Evento evento) {
+		Evento eventoEmpresa = getEventoByCodigoEmpresa(evento.getCodigoEmpresa());
+		
+		evento.setCodigoEvento(eventoEmpresa.getCodigoEvento());
+		evento.setCodigoEmpresa(eventoEmpresa.getCodigoEmpresa());
+		
 		return null;
 	}
 }

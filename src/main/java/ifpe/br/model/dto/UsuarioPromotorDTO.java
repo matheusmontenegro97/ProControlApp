@@ -2,8 +2,6 @@ package ifpe.br.model.dto;
 
 import javax.persistence.Column;
 
-import ifpe.br.model.Endereco;
-
 public class UsuarioPromotorDTO {
 	private Long codigoPromotor;
 	@Column(name = "codigo_empresa")
@@ -12,7 +10,7 @@ public class UsuarioPromotorDTO {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Endereco endereco;
+	private String endereco;
 
 	public Long getCodigoPromotor() {
 		return codigoPromotor;
@@ -62,11 +60,11 @@ public class UsuarioPromotorDTO {
 		this.email = email;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 

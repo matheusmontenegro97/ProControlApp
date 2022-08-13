@@ -20,7 +20,7 @@ public class Promotor {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Endereco endereco;
+	private String endereco;
 	@Column(unique = true)
 	private String login;
 	private String password;
@@ -73,11 +73,11 @@ public class Promotor {
 		this.email = email;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
