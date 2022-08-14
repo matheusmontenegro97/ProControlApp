@@ -1,6 +1,9 @@
 package ifpe.br.service.impl;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +36,8 @@ public class EventoServiceImpl {
 		} catch (Exception e) {
 			throw new Exception("Empresa inexistente!");
 		}
-				
+		
+		evento.setNomePromotor(promotorEvento.getNome());
 		evento.setCodigoPromotor(promotorEvento.getCodigoPromotor());
 		evento.setEventoRealizado(false);
 		evento.setImgEventoRealizado("");
@@ -41,6 +45,66 @@ public class EventoServiceImpl {
 		evento.setLongitude("");
 		
 		Evento eventoSaved = eventoRepository.save(evento);
+		
+		return eventoSaved;
+	}
+	
+	@Transactional
+	public Evento updateEventoByEmpresa(Evento evento,Long codigoEvento) throws Exception {
+		Optional<Evento> eventoOptional = eventoRepository.findById(codigoEvento);
+		
+		if(eventoOptional.isPresent()) {
+			evento.setCodigoEvento(eventoOptional.get().getCodigoEvento());
+			evento.setCodigoEmpresa(eventoOptional.get().getCodigoEmpresa());
+			evento.setCodigoPromotor(eventoOptional.get().getCodigoPromotor());
+			evento.setNomePromotor(eventoOptional.get().getNomePromotor());
+			evento.setEventoRealizado(eventoOptional.get().getEventoRealizado());
+			evento.setDataRealizacaoEvento(eventoOptional.get().getDataRealizacaoEvento());
+			evento.setImgEmpresa(eventoOptional.get().getImgEmpresa());
+			evento.setLongitude(eventoOptional.get().getLongitude());
+			evento.setLatitude(eventoOptional.get().getLatitude());
+			evento.setImgEventoRealizado(eventoOptional.get().getImgEventoRealizado());
+		}
+		else {
+			throw new Exception("Evento não encontrado!");
+		}
+		
+		Evento eventoSaved = eventoRepository.save(evento);
+		
+		return eventoSaved;
+	}
+	
+	public Evento updateEventoByPromotor(Evento evento,Long codigoEvento) throws Exception{
+		Optional<Evento> eventoOptional = eventoRepository.findById(codigoEvento);
+		
+		if(eventoOptional.isPresent()) {
+			evento.setCodigoEvento(eventoOptional.get().getCodigoEvento());
+			evento.setCodigoEmpresa(eventoOptional.get().getCodigoEmpresa());
+			evento.setCodigoPromotor(eventoOptional.get().getCodigoPromotor());
+			evento.setNomePromotor(eventoOptional.get().getNomePromotor());
+			evento.setTitulo(eventoOptional.get().getTitulo());
+			evento.setImgEmpresa(eventoOptional.get().getImgEmpresa());
+			evento.setData(eventoOptional.get().getData());
+			evento.setEndereco(eventoOptional.get().getEndereco());
+			evento.setEventoRealizado(eventoOptional.get().getEventoRealizado());
+		}
+		else {
+			throw new Exception("Evento não encontrado!");
+		}
+		
+		Evento eventoSaved = eventoRepository.save(evento);
+		
+		return eventoSaved;
+	}
+	
+	public Evento atualizaPromotorDeEvento(Long codigoEvento, Long codigoPromotor) throws Exception {
+		Promotor promotorEvento = promotorService.findByIdPromotor(codigoPromotor).orElseThrow(() -> new Exception("Promotor não encontrado!"));
+		Evento eventoOptional = eventoRepository.findById(codigoEvento).orElseThrow( () -> new Exception("Evento não encontrado") );
+		
+		eventoOptional.setCodigoPromotor(promotorEvento.getCodigoPromotor());
+		eventoOptional.setNomePromotor(promotorEvento.getNome());
+
+		Evento eventoSaved = eventoRepository.save(eventoOptional);
 		
 		return eventoSaved;
 	}
@@ -58,6 +122,7 @@ public class EventoServiceImpl {
 		
 		evento.setEventoRealizado(true);
 		evento.setCodigoPromotor(eventoPromotor.getCodigoPromotor());
+		evento.setNomePromotor(eventoPromotor.getNomePromotor());
 		evento.setCodigoEvento(eventoPromotor.getCodigoEvento());
 		evento.setCodigoEmpresa(eventoPromotor.getCodigoEmpresa());
 		evento.setTitulo(eventoPromotor.getTitulo());

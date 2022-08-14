@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,27 @@ public class EventoController {
 	@CrossOrigin()
 	public ResponseEntity<Evento> createEventoByPromotor(@RequestBody Evento evento) throws Exception{
 		return ResponseEntity.status(HttpStatus.OK).body(eventoService.createEventoByPromotor(evento));
+	}
+	
+	@PutMapping("/evento/empresa/{codigoEvento}")
+	@CrossOrigin()
+	public ResponseEntity<Evento> atualizaEventoByEmpresa(@PathVariable(value = "codigoEvento") Long codigoEvento,
+			@RequestBody Evento evento) throws Exception{
+		return ResponseEntity.status(HttpStatus.OK).body(eventoService.updateEventoByEmpresa(evento, codigoEvento));
+	}
+	
+	@PutMapping("/evento/promotor/{codigoEvento}")
+	@CrossOrigin()
+	public ResponseEntity<Evento> atualizaEventoByPromotor(@PathVariable(value = "codigoEvento") Long codigoEvento,
+			@RequestBody Evento evento) throws Exception{
+		return ResponseEntity.status(HttpStatus.OK).body(eventoService.updateEventoByPromotor(evento, codigoEvento));
+	}
+	
+	@PutMapping("/evento/{codigoEvento}/promotor/{codigoPromotor}")
+	@CrossOrigin()
+	public ResponseEntity<Evento> atualizaPromotorByEventoEmpresa(@PathVariable(value = "codigoEvento") Long codigoEvento,
+			@PathVariable(value = "codigoPromotor") Long codigoPromotor ) throws Exception{
+		return ResponseEntity.status(HttpStatus.OK).body(eventoService.atualizaPromotorDeEvento(codigoEvento, codigoPromotor));
 	}
 	
 	@GetMapping("/eventos/empresa/{codigoEmpresa}")

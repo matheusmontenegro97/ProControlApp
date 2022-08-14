@@ -1,7 +1,6 @@
 package ifpe.br.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,9 @@ public class Evento {
 	private Long codigoEvento;
 	private Long codigoEmpresa;
 	private Long codigoPromotor;
+	private String nomePromotor;
 	private String titulo;
+	private String detalhe;
 	private String imgEmpresa;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate data;
@@ -51,6 +52,14 @@ public class Evento {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getDetalhe() {
+		return detalhe;
+	}
+
+	public void setDetalhe(String detalhe) {
+		this.detalhe = detalhe;
 	}
 
 	public String getImgEmpresa() {
@@ -123,6 +132,14 @@ public class Evento {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getNomePromotor() {
+		return nomePromotor;
+	}
+
+	public void setNomePromotor(String nomePromotor) {
+		this.nomePromotor = nomePromotor;
 	}
 
 }
