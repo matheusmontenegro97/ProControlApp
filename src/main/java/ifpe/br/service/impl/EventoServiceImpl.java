@@ -87,6 +87,7 @@ public class EventoServiceImpl {
 			evento.setData(eventoOptional.get().getData());
 			evento.setEndereco(eventoOptional.get().getEndereco());
 			evento.setEventoRealizado(eventoOptional.get().getEventoRealizado());
+			evento.setDetalhe(eventoOptional.get().getDetalhe());
 		}
 		else {
 			throw new Exception("Evento não encontrado!");
@@ -129,6 +130,7 @@ public class EventoServiceImpl {
 		evento.setEndereco(eventoPromotor.getEndereco());
 		evento.setImgEmpresa(eventoPromotor.getImgEmpresa());
 		evento.setData(eventoPromotor.getData());
+		evento.setDetalhe(eventoPromotor.getDetalhe());
 		
 		Evento eventoPromotorSaved = eventoRepository.save(evento);
 		
