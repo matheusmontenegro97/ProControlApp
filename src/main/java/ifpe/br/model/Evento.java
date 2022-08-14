@@ -21,14 +21,10 @@ public class Evento {
 	private String imgEmpresa;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate data;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-	private Date horario;
 	private Endereco endereco;
 	private Boolean eventoRealizado;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate dataRealizacaoEvento;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-	private Date horarioRealizacaoEvento;
 	private String imgEventoRealizado;
 	private String longitude;
 	private String latitude;
@@ -127,22 +123,6 @@ public class Evento {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
-	}
-
-	public Date getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Date horario) {
-		this.horario = horario;
-	}
-
-	public Date getHorarioRealizacaoEvento() {
-		return horarioRealizacaoEvento;
-	}
-
-	public void setHorarioRealizacaoEvento(Date horarioRealizacaoEvento) {
-		this.horarioRealizacaoEvento = horarioRealizacaoEvento;
 	}
 
 }

@@ -64,7 +64,6 @@ public class EventoServiceImpl {
 		evento.setEndereco(eventoPromotor.getEndereco());
 		evento.setImgEmpresa(eventoPromotor.getImgEmpresa());
 		evento.setData(eventoPromotor.getData());
-		evento.setHorario(eventoPromotor.getHorario());
 		
 		Evento eventoPromotorSaved = eventoRepository.save(evento);
 		
