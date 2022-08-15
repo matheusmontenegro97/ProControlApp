@@ -52,12 +52,12 @@ public class EventoServiceImpl {
 	@Transactional
 	public Evento updateEventoByEmpresa(Evento evento,Long codigoEvento) throws Exception {
 		Optional<Evento> eventoOptional = eventoRepository.findById(codigoEvento);
+		Promotor promotorEvento = promotorService.findByIdPromotor(evento.getCodigoPromotor()).orElseThrow(() -> new Exception("Promotor não encontrado!"));
 		
 		if(eventoOptional.isPresent()) {
 			evento.setCodigoEvento(eventoOptional.get().getCodigoEvento());
 			evento.setCodigoEmpresa(eventoOptional.get().getCodigoEmpresa());
-			evento.setCodigoPromotor(eventoOptional.get().getCodigoPromotor());
-			evento.setNomePromotor(eventoOptional.get().getNomePromotor());
+			evento.setNomePromotor(promotorEvento.getNome());
 			evento.setEventoRealizado(eventoOptional.get().getEventoRealizado());
 			evento.setDataRealizacaoEvento(eventoOptional.get().getDataRealizacaoEvento());
 			evento.setImgEmpresa(eventoOptional.get().getImgEmpresa());
